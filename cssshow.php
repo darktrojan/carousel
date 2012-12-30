@@ -39,10 +39,10 @@ $imagePath = './images';
 $order = json_decode(file_get_contents($imagePath.'/order.json'));
 $i = 0;
 foreach ($order as $image) {
- 	printf(
- 		'<img src="%s" class="%s" />',
- 		$imagePath.'/'.$image,
- 		$i++ == 0 ? 'cssshow_shown' : 'cssshow_loading'
+	printf(
+		'<img src="%s" class="%s" />',
+		$imagePath.'/'.$image,
+		$i++ == 0 ? 'cssshow_shown' : 'cssshow_loading'
 	);
 }
 

@@ -186,7 +186,7 @@ var ThumbnailUI = {
 					break;
 				}
 			}
-			// this.position = Math.min(rowPosition * self.rowLength + columnPosition, this.images.length);
+
 			this.position = rowPosition * self.rowLength + columnPosition;
 			if (this.position > this.images.length) {
 				if (self.rowCount == 1) {
@@ -247,7 +247,6 @@ var ThumbnailUI = {
 		this.rowCount = Math.ceil(this.imageCount / this.rowLength);
 		this.leftPadding = Math.floor((this.containerPosition.width - this.rowLength * this.columnWidth) / 2);
 		this.thumbsContainer.style.height = this.rowCount * this.rowHeight + 'px';
-		// this.thumbsContainer.parentNode.style.height = this.rowCount * this.rowHeight + 'px';
 
 		for (var i = 0; i < this.thumbsContainer.children.length; i++) {
 			var thumb = this.thumbsContainer.children[i];
@@ -364,6 +363,7 @@ var CanvasUI = {
 			});
 		}
 
+		// Not used due to https://bugzil.la/822190
 		// if ('toBlob' in this.canvas) {
 		// 	this.canvas.toBlob(function(aBlob) {
 		// 		finish(URL.createObjectURL(aBlob), aBlob);
