@@ -1,0 +1,28 @@
+#cssshow {
+	position: relative;
+	width: 720px;
+	height: 320px;
+}
+#cssshow > * {
+	display: block;
+	position: absolute;
+	width: 720px;
+	height: 320px;
+}
+#cssshow > .cssshow_fading {
+	opacity: 0;
+		-ms-transition: opacity 1440ms;
+		-o-transition: opacity 1440ms;
+		-webkit-transition: opacity 1440ms;
+	transition: opacity 1440ms;
+	z-index: 2;
+}
+#cssshow > .cssshow_shown {
+	z-index: 1;
+}
+#cssshow > .cssshow_hidden {
+	z-index: 0;
+}
+#cssshow > .cssshow_loading {
+	visibility: hidden;
+}
