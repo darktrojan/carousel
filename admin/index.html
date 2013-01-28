@@ -1,0 +1,37 @@
+<html>
+<head>
+<link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+<div id="outer">
+	<div id="thumbnailui" class="inner">
+		<div id="thumbs"></div>
+		<div id="trash"></div>
+		<div class="text">
+			<p>
+				Drag the images into the order you want them, then click
+				<button onclick="ThumbnailUI.saveOrder();">save order</button>
+			</p>
+			<p>
+				To add another image, click
+				<button onclick="CanvasUI.show();">add</button>
+			</p>
+		</div>
+	</div>
+	<div id="canvasui" class="inner">
+		<canvas width="720" height="320"></canvas>
+		<div class="text">
+			<p>Drag an image from your computer on to this window, then drag it vertically to reposition it.</p>
+			<p>
+				<button onclick="CanvasUI.saveToThumbs();">save</button>
+				<button onclick="CanvasUI.hide();">cancel</button>
+			</p>
+		</div>
+	</div>
+</div>
+<script src="dragdrop/dragdrop.js"></script>
+<script src="extend/xhr.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
