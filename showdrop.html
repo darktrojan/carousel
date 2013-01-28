@@ -172,20 +172,10 @@ var ThumbnailUI = {
 			var x = aEvent.pageX - self.containerPosition.left - self.leftPadding;
 			var y = aEvent.pageY - self.containerPosition.top;
 
-			var columnPosition = self.rowLength - 1;
-			var rowPosition = self.rowCount - 1;
-			for (var i = 1; i <= self.rowLength - 1; i++) {
-				if (x < self.columnWidth * i) {
-					columnPosition = i - 1;
-					break;
-				}
-			}
-			for (var i = 1; i < self.rowCount; i++) {
-				if (y < self.rowHeight * i) {
-					rowPosition = i - 1;
-					break;
-				}
-			}
+			var rowPosition =
+				Math.max(Math.min(Math.floor(y / self.rowHeight), self.rowLength - 1), 0);
+			var columnPosition =
+				Math.max(Math.min(Math.floor(x / self.columnWidth), self.rowCount - 1), 0);
 
 			this.position = rowPosition * self.rowLength + columnPosition;
 			if (this.position > this.images.length) {
