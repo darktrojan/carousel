@@ -1,6 +1,6 @@
 [submodule "dragdrop"]
-	path = dragdrop
+	path = admin/dragdrop
 	url = git://github.com/darktrojan/dragdrop.git
 [submodule "extend"]
-	path = extend
+	path = admin/extend
 	url = git://github.com/darktrojan/extend.js.git

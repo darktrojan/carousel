@@ -1,6 +1,6 @@
 <?
 
-$imagePath = './images';
+$imagePath = '../images';
 $order = json_decode(file_get_contents($imagePath.'/order.json'));
 
 $dirHandle = opendir($imagePath);
