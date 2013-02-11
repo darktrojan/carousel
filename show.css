@@ -22,6 +22,7 @@
 }
 #cssshow > .cssshow_hidden {
 	z-index: 0;
+	visibility: hidden;
 }
 #cssshow > .cssshow_loading {
 	visibility: hidden;

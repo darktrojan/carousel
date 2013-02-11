@@ -19,20 +19,24 @@ var ThumbnailUI = {
 		this.containerPosition = DraggableObject.fixBCR(this.thumbsContainer);
 		this.trash = document.getElementById('trash');
 
+		this.inner.ondragstart = function() {
+			return false;
+		};
+
 		var self = this;
 		this.DraggableThumbnail.prototype = new DraggableObject;
 		this.DraggableThumbnail.prototype.customMouseMove = function(aEvent) {
 			if (!this.holder) {
 				this.holder = document.createElement('div');
 				this.holder.id = 'holder';
-				self.thumbsContainer.appendChild(this.holder)
+				self.thumbsContainer.appendChild(this.holder);
 				this.domNode.classList.add('moving');
 				document.body.appendChild(this.domNode);
 				this.images = self.thumbsContainer.querySelectorAll('img');
 			}
 
-			this.domNode.style.left = aEvent.pageX - this.dragStartX + "px";
-			this.domNode.style.top = aEvent.pageY - this.dragStartY + "px";
+			this.domNode.style.left = aEvent.pageX - this.dragStartX + 'px';
+			this.domNode.style.top = aEvent.pageY - this.dragStartY + 'px';
 
 			var trashPosition = DraggableObject.fixBCR(self.trash);
 			if (aEvent.pageX >= trashPosition.left && aEvent.pageX < trashPosition.right &&
@@ -75,7 +79,7 @@ var ThumbnailUI = {
 					self.positionImage(this.images[j++], i);
 				}
 			}
-		}
+		};
 		this.DraggableThumbnail.prototype.customMouseUp = function(aEvent) {
 			this.domNode.classList.remove('moving');
 
@@ -91,7 +95,14 @@ var ThumbnailUI = {
 				}
 				delete this.holder;
 			}
-		}
+		};
+		this.DraggableThumbnail.prototype.customDblClick = function(aEvent) {
+			var oldLink = this.domNode.dataset.link || '';
+			var newLink = prompt('Enter a link:', oldLink);
+			if (newLink != null) {
+				this.domNode.dataset.link = newLink;
+			}
+		};
 		this.loadOrder();
 	},
 	loadOrder: function() {
@@ -100,7 +111,10 @@ var ThumbnailUI = {
 			var order = JSON.parse(req.responseText);
 			for (var i = 0; i < order.length; i++) {
 				var thumb = document.createElement('img');
-				thumb.src = self.imagePath + '/' + order[i];
+				thumb.src = self.imagePath + '/' + order[i]['image'];
+				if (order[i]['link']) {
+					thumb.dataset.link = order[i]['link'];
+				}
 				self.thumbsContainer.appendChild(thumb);
 				new ThumbnailUI.DraggableThumbnail(thumb);
 			}
@@ -129,9 +143,15 @@ var ThumbnailUI = {
 		var order = [];
 		for (var i = 0; i < this.thumbsContainer.children.length; i++) {
 			var thumb = this.thumbsContainer.children[i];
-			order.push(thumb.dataset.filename || thumb.src.substring(thumb.src.lastIndexOf('/') + 1));
+			var thumbObject = {};
+			thumbObject.image =
+				thumb.dataset.filename || thumb.src.substring(thumb.src.lastIndexOf('/') + 1);
+			if (thumb.dataset.link) {
+				thumbObject.link = thumb.dataset.link;
+			}
+			order.push(thumbObject);
 		}
-		XHR.post('saveorder.php', 'order=' + encodeURIComponent(JSON.stringify(order)), function(){});
+		XHR.post('saveorder.php', 'order=' + encodeURIComponent(JSON.stringify(order)), function() {});
 	},
 	DraggableThumbnail: function(aThumbnail) {
 		this.init(aThumbnail);

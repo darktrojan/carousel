@@ -60,5 +60,5 @@ var CSSShow = {
 			CSSShow.current = aIndex;
 		}, 1500);
 	}
-}
+};
 CSSShow.init();
